@@ -1,20 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Expenses.css";
 import ExpensesFilter from "./ExpensesFilter";
 import ExpensesList from "./ExpensesList";
 
 function Expenses(props) {
+  const [filtredYear, setFiltredYear] = useState(2022);
   let tabYear = props.expList.map((exp) => {
     return exp.date_d.getFullYear();
   });
-  //console.log(tabYear);
+
   let s = new Set(tabYear);
   tabYear = [...s];
-  //console.log(tabYear);
+
   return (
     <div className="expenses">
-      <ExpensesFilter allYears={tabYear}></ExpensesFilter>
-      <ExpensesList expList={props.expList}></ExpensesList>
+      <ExpensesFilter
+        allYears={tabYear}
+        changeFiltredYear={setFiltredYear}
+      ></ExpensesFilter>
+      <ExpensesList
+        expList={props.expList.filter(
+          (expense) => expense.date_d.getFullYear() == filtredYear
+        )}
+      ></ExpensesList>
     </div>
   );
 }
