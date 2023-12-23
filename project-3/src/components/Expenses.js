@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./Expenses.css";
 import ExpensesFilter from "./ExpensesFilter";
 import ExpensesList from "./ExpensesList";
+import ExpenseChart from "./charts/ExpenseChart";
 
 function Expenses(props) {
   const [filtredYear, setFiltredYear] = useState(2022);
@@ -12,17 +13,18 @@ function Expenses(props) {
   let s = new Set(tabYear);
   tabYear = [...s];
 
+  const filterDepenses = props.expList.filter(
+    (element) => element.date_d.getFullYear().toString() == filtredYear
+  );
+
   return (
     <div className="expenses">
       <ExpensesFilter
         allYears={tabYear}
         changeFiltredYear={setFiltredYear}
       ></ExpensesFilter>
-      <ExpensesList
-        expList={props.expList.filter(
-          (expense) => expense.date_d.getFullYear() == filtredYear
-        )}
-      ></ExpensesList>
+      <ExpenseChart expList={filterDepenses}></ExpenseChart>
+      <ExpensesList expList={filterDepenses}></ExpensesList>
     </div>
   );
 }

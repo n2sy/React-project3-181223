@@ -4,7 +4,7 @@ import "./ExpensesFilter.css";
 function ExpensesFilter(props) {
   function filterYearHandler(e) {
     console.log(e.target.value);
-    props.changeFiltredYear(e.target.value)
+    props.changeFiltredYear(e.target.value);
   }
   return (
     <div className="expenses-filter">
